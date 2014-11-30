@@ -102,10 +102,30 @@ public class Extractor extends DefaultHandler {
 		String name = currentEntity.tagValue("CardName");
 		Integer attack = toInt(currentEntity.tagValue("Atk"));
 		Integer health = toInt(currentEntity.tagValue("Health"));
+		Integer set = toInt(currentEntity.tagValue("CardSet"));
+		Integer type = toInt(currentEntity.tagValue("CardType"));
+		Integer faction = toInt(currentEntity.tagValue("Faction"));
+		Integer rarity = toInt(currentEntity.tagValue("Rarity"));
+		Integer cost = toInt(currentEntity.tagValue("Cost"));
+		Integer durability = toInt(currentEntity.tagValue("Durability"));
+		String text = currentEntity.tagValue("CardTextInHand");
+		String textInPlay = currentEntity.tagValue("CardTextInPlay");
+		String flavourText = currentEntity.tagValue("FlavorText");
+		String artistName = currentEntity.tagValue("ArtistName");
+		boolean isCollectible = toBool(currentEntity.tagValue("Collectible"));
+		boolean isElite = toBool(currentEntity.tagValue("Elite"));
+		Integer race = toInt(currentEntity.tagValue("Race"));
+		Integer heroClass = toInt(currentEntity.tagValue("Class"));
+		String howToGet = currentEntity.tagValue("HowToGetThisCard");
+		String howToGetGold = currentEntity.tagValue("HowToGetThisGoldCard");
+		// mechanics = null; // TODO
 
 		Card card = cardRepository.findByGameId(id);
 		Integer internalId = card == null ? null : card.getId();
-		card = new Card(internalId, id, name, attack, health);
+		card = new Card(internalId, id, name, attack, health, set, type,
+				faction, rarity, cost, durability, text, textInPlay,
+				flavourText, artistName, isCollectible, isElite, race,
+				heroClass, howToGet, howToGetGold);
 		cardRepository.save(card);
 	}
 
@@ -133,6 +153,13 @@ public class Extractor extends DefaultHandler {
 			return null;
 		}
 		return Integer.parseInt(s);
+	}
+
+	private static boolean toBool(String s) {
+		if (s == null) {
+			return false;
+		}
+		return "1".equals(s) || Boolean.parseBoolean(s);
 	}
 
 }
