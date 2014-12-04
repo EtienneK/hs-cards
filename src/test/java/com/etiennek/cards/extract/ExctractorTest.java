@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import com.etiennek.cards.extract.Extractor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = App.class)
-@Ignore
 public class ExctractorTest {
 
 	@Autowired

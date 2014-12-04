@@ -16,9 +16,10 @@ public class Card {
 	private String name;
 	private Integer attack;
 	private Integer health;
-	@Column(name = "`set`")
-	private Integer set;
-	private Integer type;
+	@Column(name = "`set`", nullable = false)
+	private int set;
+	@Column(nullable = false)
+	private int type;
 	private Integer faction;
 	private Integer rarity;
 	private Integer cost;
@@ -39,11 +40,11 @@ public class Card {
 	}
 
 	public Card(Integer id, String gameId, String name, Integer attack,
-			Integer health, Integer set, Integer type, Integer faction,
-			Integer rarity, Integer cost, Integer durability, String text,
-			String textInPlay, String flavourText, String artistName,
-			boolean isCollectible, boolean isElite, Integer race,
-			Integer heroClass, String howToGet, String howToGetGold) {
+			Integer health, int set, int type, Integer faction, Integer rarity,
+			Integer cost, Integer durability, String text, String textInPlay,
+			String flavourText, String artistName, boolean isCollectible,
+			boolean isElite, Integer race, Integer heroClass, String howToGet,
+			String howToGetGold) {
 		super();
 		this.id = id;
 		this.gameId = gameId;
@@ -88,11 +89,11 @@ public class Card {
 		return health;
 	}
 
-	public Integer getSet() {
+	public int getSet() {
 		return set;
 	}
 
-	public Integer getType() {
+	public int getType() {
 		return type;
 	}
 
@@ -179,11 +180,11 @@ public class Card {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((race == null) ? 0 : race.hashCode());
 		result = prime * result + ((rarity == null) ? 0 : rarity.hashCode());
-		result = prime * result + ((set == null) ? 0 : set.hashCode());
+		result = prime * result + set;
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		result = prime * result
 				+ ((textInPlay == null) ? 0 : textInPlay.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + type;
 		return result;
 	}
 
@@ -275,10 +276,7 @@ public class Card {
 				return false;
 		} else if (!rarity.equals(other.rarity))
 			return false;
-		if (set == null) {
-			if (other.set != null)
-				return false;
-		} else if (!set.equals(other.set))
+		if (set != other.set)
 			return false;
 		if (text == null) {
 			if (other.text != null)
@@ -290,10 +288,7 @@ public class Card {
 				return false;
 		} else if (!textInPlay.equals(other.textInPlay))
 			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
+		if (type != other.type)
 			return false;
 		return true;
 	}

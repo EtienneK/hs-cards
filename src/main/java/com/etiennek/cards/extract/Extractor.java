@@ -33,6 +33,8 @@ public class Extractor extends DefaultHandler {
 	}
 
 	public void extract(Path cardXmlUnityFile) throws IOException {
+		// TODO: Fix this so we can capture errors properly. If something goes
+		// wrong now, we won't know it failed.
 		DisUnityCli
 				.main(new String[] { "extract", cardXmlUnityFile.toString() });
 		Path xmlRootDirectory = PathUtils.removeExtension(cardXmlUnityFile);

@@ -14,6 +14,20 @@
 					placeholder="Search..." />
 			</div>
 		</form>
+
+		<p data-bind="visible: isTypingInQueryInput()">Searching...</p>
+		<p data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &lt;= 0">No
+			results found.</p>
+		<ul class="list-unstyled"
+			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, template: {name:'card', foreach:cards}">
+		</ul>
+		
+		<script type="text/html" id="card"> 
+			<li>
+				<p><strong data-bind="text: name"></strong></p>
+				<p data-bind="html: text"></p>
+			</li>
+		</script> 
 	</div>
 </body>
 

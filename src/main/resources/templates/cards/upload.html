@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+
+<head>
+<title>HS Cards</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="container">
+		<form role="form" id="uploadForm" action="#"
+			th:action="@{/cards/upload}" th:method="post"
+			enctype="multipart/form-data">
+
+			<div class="form-group">
+				<label for="cardsXmlFileInput">Cards XML Unity File</label> <input
+					type="file" class="form-control input-lg" id="cardsXmlFileInput"
+					name="cardsXmlFileInput" />
+			</div>
+
+			<button type="submit" class="btn btn-primary">Capture</button>
+
+		</form>
+	</div>
+</body>
+
+</html>
