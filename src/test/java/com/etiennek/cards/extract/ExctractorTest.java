@@ -51,7 +51,7 @@ public class ExctractorTest {
 
 	// Card Data
 
-	private long NUMBER_OF_CARDS = 882L;
+	private long NUMBER_OF_CARDS = 1063L;
 	private static String IN_GAME_ID_GROMMASH = "EX1_414";
 	private static String IN_GAME_ID_ASSBLADE = "CS2_080";
 	private static String IN_GAME_ID_TWIS_NETH = "EX1_312";
@@ -69,7 +69,7 @@ public class ExctractorTest {
 				5,
 				8,
 				null,
-				"<b>Charge</b>.<b>Enrage:</b>+6 Attack",
+				"<b>Charge</b><b>Enrage:</b>+6 Attack",
 				null,
 				"Grommash drank the tainted blood of Mannoroth, dooming the orcs to green skin and red eyes!  Maybe not his best decision.",
 				"Glenn Rane", true, true, null, 10, null, null);

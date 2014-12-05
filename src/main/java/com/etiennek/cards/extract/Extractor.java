@@ -26,7 +26,7 @@ public class Extractor extends DefaultHandler {
 
 	private CardRepository cardRepository;
 	private Entity currentEntity;
-	private String currentTagName;
+	private Integer currentTagEnumId;
 
 	public Extractor(CardRepository cardRepository) {
 		this.cardRepository = cardRepository;
@@ -64,19 +64,16 @@ public class Extractor extends DefaultHandler {
 			currentEntity = new Entity();
 			currentEntity.id = attributes.getValue("CardID");
 		} else if ("Tag".equals(qName)) {
-			currentTagName = attributes.getValue("name");
-			if (currentTagName == null) {
-				throw new IllegalStateException("Tag can't be null");
-			}
+			currentTagEnumId = Integer.parseInt(attributes.getValue("enumID"));
 			String tagValue = attributes.getValue("value");
-			currentEntity.tags.put(currentTagName, tagValue == null ? ""
+			currentEntity.tags.put(currentTagEnumId, tagValue == null ? ""
 					: tagValue);
 		}
 	}
 
 	public void characters(char ch[], int start, int length)
 			throws SAXException {
-		if (currentEntity == null || currentTagName == null) {
+		if (currentEntity == null || currentTagEnumId == null) {
 			return;
 		}
 
@@ -84,8 +81,8 @@ public class Extractor extends DefaultHandler {
 		if (value.length() == 0) {
 			return; // ignore white space
 		}
-		currentEntity.tags.put(currentTagName,
-				currentEntity.tags.get(currentTagName) + value);
+		currentEntity.tags.put(currentTagEnumId,
+				currentEntity.tags.get(currentTagEnumId) + value);
 	}
 
 	@Override
@@ -95,31 +92,52 @@ public class Extractor extends DefaultHandler {
 			saveEntity();
 			currentEntity = null;
 		} else if ("Tag".equals(qName)) {
-			currentTagName = null;
+			currentTagEnumId = null;
 		}
 	}
 
+	private static int ENUM_ID_CARD_NAME = 185;
+	private static int ENUM_ID_ATTACK = 47;
+	private static int ENUM_ID_HEALTH = 45;
+	private static int ENUM_ID_CARD_SET = 183;
+	private static int ENUM_ID_CARD_TYPE = 202;
+	private static int ENUM_ID_FACTION = 201;
+	private static int ENUM_ID_RARITY = 203;
+	private static int ENUM_ID_COST = 48;
+	private static int ENUM_ID_DURABILITY = 187;
+	private static int ENUM_ID_CARD_TEXT_IN_HAND = 184;
+	private static int ENUM_ID_CARD_TEXT_IN_PLAY = 252;
+	private static int ENUM_ID_FLAVOUR_TEXT = 351;
+	private static int ENUM_ID_ARTIST_NAME = 342;
+	private static int ENUM_COLLECTIBLE = 321;
+	private static int ENUM_ID_ELITE = 114;
+	private static int ENUM_ID_RACE = 200;
+	private static int ENUM_ID_CLASS = 199;
+	private static int ENUM_ID_HOW_TO_GET_THIS_CARD = 364;
+	private static int ENUM_ID_HOW_TO_GET_THIS_GOLD_CARD = 365;
+
 	private void saveEntity() {
 		String id = currentEntity.id;
-		String name = currentEntity.tagValue("CardName");
-		Integer attack = toInt(currentEntity.tagValue("Atk"));
-		Integer health = toInt(currentEntity.tagValue("Health"));
-		Integer set = toInt(currentEntity.tagValue("CardSet"));
-		Integer type = toInt(currentEntity.tagValue("CardType"));
-		Integer faction = toInt(currentEntity.tagValue("Faction"));
-		Integer rarity = toInt(currentEntity.tagValue("Rarity"));
-		Integer cost = toInt(currentEntity.tagValue("Cost"));
-		Integer durability = toInt(currentEntity.tagValue("Durability"));
-		String text = currentEntity.tagValue("CardTextInHand");
-		String textInPlay = currentEntity.tagValue("CardTextInPlay");
-		String flavourText = currentEntity.tagValue("FlavorText");
-		String artistName = currentEntity.tagValue("ArtistName");
-		boolean isCollectible = toBool(currentEntity.tagValue("Collectible"));
-		boolean isElite = toBool(currentEntity.tagValue("Elite"));
-		Integer race = toInt(currentEntity.tagValue("Race"));
-		Integer heroClass = toInt(currentEntity.tagValue("Class"));
-		String howToGet = currentEntity.tagValue("HowToGetThisCard");
-		String howToGetGold = currentEntity.tagValue("HowToGetThisGoldCard");
+		String name = currentEntity.tagValue(ENUM_ID_CARD_NAME);
+		Integer attack = toInt(currentEntity.tagValue(ENUM_ID_ATTACK));
+		Integer health = toInt(currentEntity.tagValue(ENUM_ID_HEALTH));
+		Integer set = toInt(currentEntity.tagValue(ENUM_ID_CARD_SET));
+		Integer type = toInt(currentEntity.tagValue(ENUM_ID_CARD_TYPE));
+		Integer faction = toInt(currentEntity.tagValue(ENUM_ID_FACTION));
+		Integer rarity = toInt(currentEntity.tagValue(ENUM_ID_RARITY));
+		Integer cost = toInt(currentEntity.tagValue(ENUM_ID_COST));
+		Integer durability = toInt(currentEntity.tagValue(ENUM_ID_DURABILITY));
+		String text = currentEntity.tagValue(ENUM_ID_CARD_TEXT_IN_HAND);
+		String textInPlay = currentEntity.tagValue(ENUM_ID_CARD_TEXT_IN_PLAY);
+		String flavourText = currentEntity.tagValue(ENUM_ID_FLAVOUR_TEXT);
+		String artistName = currentEntity.tagValue(ENUM_ID_ARTIST_NAME);
+		boolean isCollectible = toBool(currentEntity.tagValue(ENUM_COLLECTIBLE));
+		boolean isElite = toBool(currentEntity.tagValue(ENUM_ID_ELITE));
+		Integer race = toInt(currentEntity.tagValue(ENUM_ID_RACE));
+		Integer heroClass = toInt(currentEntity.tagValue(ENUM_ID_CLASS));
+		String howToGet = currentEntity.tagValue(ENUM_ID_HOW_TO_GET_THIS_CARD);
+		String howToGetGold = currentEntity
+				.tagValue(ENUM_ID_HOW_TO_GET_THIS_GOLD_CARD);
 		// mechanics = null; // TODO
 
 		Card card = cardRepository.findByGameId(id);
@@ -143,10 +161,10 @@ public class Extractor extends DefaultHandler {
 
 	private class Entity {
 		String id;
-		Map<String, String> tags = new HashMap<>();
+		Map<Integer, String> tags = new HashMap<>();
 
-		String tagValue(String tagName) {
-			return tags.get(tagName);
+		String tagValue(int tagEnumId) {
+			return tags.get(tagEnumId);
 		}
 	}
 
