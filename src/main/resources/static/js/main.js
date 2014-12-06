@@ -24,7 +24,7 @@ $(function() {
 		if (search === '') {
 			viewModel.updateData(firstPage);
 		} else {
-			$.get('http://localhost:8080/cards/search', {
+			$.get('http://localhost:8080/api/v1/cards/search', {
 				query : search
 			}).done(function(data) {
 				viewModel.updateData(data);

@@ -69,7 +69,7 @@ public class ExctractorTest {
 				5,
 				8,
 				null,
-				"<b>Charge</b><b>Enrage:</b>+6 Attack",
+				"<b>Charge</b>\n<b>Enrage:</b> +6 Attack",
 				null,
 				"Grommash drank the tainted blood of Mannoroth, dooming the orcs to green skin and red eyes!  Maybe not his best decision.",
 				"Glenn Rane", true, true, null, 10, null, null);

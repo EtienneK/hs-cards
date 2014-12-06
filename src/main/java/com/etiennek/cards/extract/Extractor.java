@@ -77,10 +77,7 @@ public class Extractor extends DefaultHandler {
 			return;
 		}
 
-		String value = new String(ch, start, length).trim();
-		if (value.length() == 0) {
-			return; // ignore white space
-		}
+		String value = new String(ch, start, length);
 		currentEntity.tags.put(currentTagEnumId,
 				currentEntity.tags.get(currentTagEnumId) + value);
 	}
