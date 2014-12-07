@@ -8,28 +8,21 @@
 
 <body>
 	<div layout:fragment="content" class="container">
-		<form role="form">
-			<div class="form-group">
-				<input type="search" class="form-control input-lg" id="txtSearch"
-					placeholder="Search..." autocomplete="off"
-					data-bind="value: query, valueUpdate: [&#39;input&#39;, &#39;afterkeydown&#39;]" />
-			</div>
-		</form>
 
 		<p data-bind="visible: isTypingInQueryInput()">Searching...</p>
 		<p
 			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &lt;= 0">No
 			results found.</p>
-		<ul class="list-unstyled"
-			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, template: {name:'card', foreach:cards}">
-		</ul>
 
-		<script type="text/html" id="card"> 
-			<li>
-				<h2 data-bind="text: name"></h2>
-				<p data-bind="html: text"></p>
-				<p>type: <b data-bind="text: type"></b></p>
-			</li>
+		<div class="row"
+			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, template: {name:'card', foreach:cards}">
+		</div>
+
+		<script type="text/html" id="card">
+			<div class="col-sm-4">
+				<h3 data-bind="text: name"></h3>
+				<p data-bind="html: text ? text.replace(/(?:\r\n|\r|\n)/g, &#39;&lt;br /&gt;&#39;) : &#39;&#39;"></p>
+			</div>
 		</script>
 	</div>
 </body>
