@@ -1,5 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 
 <head>
@@ -10,9 +9,7 @@
 	<div layout:fragment="content" class="container">
 
 		<p data-bind="visible: isTypingInQueryInput()">Searching...</p>
-		<p
-			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &lt;= 0">No
-			results found.</p>
+		<p data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &lt;= 0">No results found.</p>
 
 		<div class="row"
 			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, template: {name:'card', foreach:cards}">
@@ -22,8 +19,20 @@
 			<div class="col-sm-4">
 				<h3 data-bind="text: name"></h3>
 				<p data-bind="html: text ? text.replace(/(?:\r\n|\r|\n)/g, &#39;&lt;br /&gt;&#39;) : &#39;&#39;"></p>
+				<p style="font-weight: bold;">
+					<img data-bind="visible: cost !== null" th:src="@{/img/mana-crystal-30x30.png}" /><span data-bind="text: cost" ></span>
+					<span data-bind="visible: type === 4">
+						<img th:src="@{/img/attack-26x30.png}" /><span data-bind="text: attack" ></span>
+						<img th:src="@{/img/health-21x30.png}" /><span data-bind="text: health" ></span>
+					</span>
+					<span data-bind="visible: type === 7">
+						<img th:src="@{/img/weapon-attack-30x30.png}" /><span data-bind="text: attack" ></span>
+						<img th:src="@{/img/weapon-durability-30x30.png}" /><span data-bind="text: durability" ></span>
+					</span>
+				</p>
 			</div>
 		</script>
+
 	</div>
 </body>
 
