@@ -1,24 +1,17 @@
 package com.etiennek.cards.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-@Entity
+@Document(indexName = "card")
 public class Card {
 	@Id
-	@GeneratedValue
-	private Integer id;
-	@Column(unique = true, nullable = false)
+	private String id;
 	private String gameId;
-	@Column(nullable = false)
 	private String name;
 	private Integer attack;
 	private Integer health;
-	@Column(name = "`set`", nullable = false)
 	private int set;
-	@Column(nullable = false)
 	private int type;
 	private Integer faction;
 	private Integer rarity;
@@ -28,8 +21,8 @@ public class Card {
 	private String textInPlay;
 	private String flavourText;
 	private String artistName;
-	private boolean isCollectible;
-	private boolean isElite;
+	private boolean collectible;
+	private boolean elite;
 	private Integer race;
 	private Integer heroClass;
 	private String howToGet;
@@ -39,11 +32,11 @@ public class Card {
 		super();
 	}
 
-	public Card(Integer id, String gameId, String name, Integer attack,
+	public Card(String id, String gameId, String name, Integer attack,
 			Integer health, int set, int type, Integer faction, Integer rarity,
 			Integer cost, Integer durability, String text, String textInPlay,
-			String flavourText, String artistName, boolean isCollectible,
-			boolean isElite, Integer race, Integer heroClass, String howToGet,
+			String flavourText, String artistName, boolean collectible,
+			boolean elite, Integer race, Integer heroClass, String howToGet,
 			String howToGetGold) {
 		super();
 		this.id = id;
@@ -61,15 +54,15 @@ public class Card {
 		this.textInPlay = textInPlay;
 		this.flavourText = flavourText;
 		this.artistName = artistName;
-		this.isCollectible = isCollectible;
-		this.isElite = isElite;
+		this.collectible = collectible;
+		this.elite = elite;
 		this.race = race;
 		this.heroClass = heroClass;
 		this.howToGet = howToGet;
 		this.howToGetGold = howToGetGold;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -130,11 +123,11 @@ public class Card {
 	}
 
 	public boolean isCollectible() {
-		return isCollectible;
+		return collectible;
 	}
 
 	public boolean isElite() {
-		return isElite;
+		return elite;
 	}
 
 	public Integer getRace() {
@@ -160,9 +153,11 @@ public class Card {
 		result = prime * result
 				+ ((artistName == null) ? 0 : artistName.hashCode());
 		result = prime * result + ((attack == null) ? 0 : attack.hashCode());
+		result = prime * result + (collectible ? 1231 : 1237);
 		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
 		result = prime * result
 				+ ((durability == null) ? 0 : durability.hashCode());
+		result = prime * result + (elite ? 1231 : 1237);
 		result = prime * result + ((faction == null) ? 0 : faction.hashCode());
 		result = prime * result
 				+ ((flavourText == null) ? 0 : flavourText.hashCode());
@@ -175,8 +170,6 @@ public class Card {
 		result = prime * result
 				+ ((howToGetGold == null) ? 0 : howToGetGold.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + (isCollectible ? 1231 : 1237);
-		result = prime * result + (isElite ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((race == null) ? 0 : race.hashCode());
 		result = prime * result + ((rarity == null) ? 0 : rarity.hashCode());
@@ -207,6 +200,8 @@ public class Card {
 				return false;
 		} else if (!attack.equals(other.attack))
 			return false;
+		if (collectible != other.collectible)
+			return false;
 		if (cost == null) {
 			if (other.cost != null)
 				return false;
@@ -216,6 +211,8 @@ public class Card {
 			if (other.durability != null)
 				return false;
 		} else if (!durability.equals(other.durability))
+			return false;
+		if (elite != other.elite)
 			return false;
 		if (faction == null) {
 			if (other.faction != null)
@@ -257,10 +254,6 @@ public class Card {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (isCollectible != other.isCollectible)
-			return false;
-		if (isElite != other.isElite)
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -301,7 +294,7 @@ public class Card {
 				+ rarity + ", cost=" + cost + ", durability=" + durability
 				+ ", text=" + text + ", textInPlay=" + textInPlay
 				+ ", flavourText=" + flavourText + ", artistName=" + artistName
-				+ ", isCollectible=" + isCollectible + ", isElite=" + isElite
+				+ ", collectible=" + collectible + ", elite=" + elite
 				+ ", race=" + race + ", heroClass=" + heroClass + ", howToGet="
 				+ howToGet + ", howToGetGold=" + howToGetGold + "]";
 	}

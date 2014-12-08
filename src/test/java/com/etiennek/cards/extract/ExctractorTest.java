@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +21,15 @@ import com.etiennek.cards.extract.Extractor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = App.class)
-@Ignore
 public class ExctractorTest {
 
 	@Autowired
 	CardRepository cardRepository;
+
+	@Before
+	public void start() {
+		cardRepository.deleteAll();
+	}
 
 	@Test
 	public void test() throws IOException {
@@ -35,13 +40,16 @@ public class ExctractorTest {
 		extractor.extract(Paths.get("D:/temp/extractor/cardxml0.unity3d"));
 		extractor.extract(Paths.get("D:/temp/extractor/cardxml0.unity3d"));
 
-		Card actualGrommash = cardRepository.findByGameId(IN_GAME_ID_GROMMASH);
+		Card actualGrommash = cardRepository
+				.findFirstByGameId(IN_GAME_ID_GROMMASH);
 		Card expectedGrommash = expectedGrommash(actualGrommash.getId());
 
-		Card actualAssBlade = cardRepository.findByGameId(IN_GAME_ID_ASSBLADE);
+		Card actualAssBlade = cardRepository
+				.findFirstByGameId(IN_GAME_ID_ASSBLADE);
 		Card expectedAssBlade = expectedAssassinsBlade(actualAssBlade.getId());
 
-		Card actualTwisNeth = cardRepository.findByGameId(IN_GAME_ID_TWIS_NETH);
+		Card actualTwisNeth = cardRepository
+				.findFirstByGameId(IN_GAME_ID_TWIS_NETH);
 		Card expectedTwisNeth = expectedTwistingNether(actualTwisNeth.getId());
 
 		// Assert
@@ -58,7 +66,7 @@ public class ExctractorTest {
 	private static String IN_GAME_ID_ASSBLADE = "CS2_080";
 	private static String IN_GAME_ID_TWIS_NETH = "EX1_312";
 
-	private Card expectedGrommash(int id) {
+	private Card expectedGrommash(String id) {
 		return new Card(
 				id,
 				IN_GAME_ID_GROMMASH,
@@ -77,7 +85,7 @@ public class ExctractorTest {
 				"Glenn Rane", true, true, null, 10, null, null);
 	}
 
-	private Card expectedAssassinsBlade(int id) {
+	private Card expectedAssassinsBlade(String id) {
 		return new Card(
 				id,
 				IN_GAME_ID_ASSBLADE,
@@ -97,7 +105,7 @@ public class ExctractorTest {
 				"Unlocked at Level 32.");
 	}
 
-	private Card expectedTwistingNether(int id) {
+	private Card expectedTwistingNether(String id) {
 		return new Card(
 				id,
 				IN_GAME_ID_TWIS_NETH,
