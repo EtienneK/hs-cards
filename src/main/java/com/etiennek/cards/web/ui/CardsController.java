@@ -1,4 +1,4 @@
-package com.etiennek.cards.web;
+package com.etiennek.cards.web.ui;
 
 import java.io.IOException;
 import java.nio.file.Files;

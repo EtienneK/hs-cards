@@ -1,4 +1,4 @@
-package com.etiennek.cards.rest;
+package com.etiennek.cards.web.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.etiennek.cards.domain.Card;
+import static com.etiennek.cards.web.model.Mapper.*;
 import com.etiennek.cards.repo.CardRepository;
-import com.etiennek.cards.search.domain.CardSearch;
 import com.etiennek.cards.search.repo.CardSearchRepository;
+import com.etiennek.cards.web.model.CardModel;
 
 @RestController
 @RequestMapping("/api/v1/cards")
@@ -28,13 +28,14 @@ public class CardsRestController {
 	}
 
 	@RequestMapping
-	Page<Card> list(Pageable pageable) {
-		return cardRepository.findAll(pageable);
+	Page<CardModel> list(Pageable pageable) {
+		return mapFromCardPage(cardRepository.findAll(pageable));
 	}
 
 	@RequestMapping("/search")
-	public Page<CardSearch> search(@RequestParam String query, Pageable pageable) {
-		return cardSearchRepository.search(query, pageable);
+	public Page<CardModel> search(@RequestParam String query, Pageable pageable) {
+		return mapFromCardSearchPage(cardSearchRepository.search(query,
+				pageable));
 	}
 
 }
