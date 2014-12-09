@@ -15,16 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.etiennek.cards.extract.Extractor;
-import com.etiennek.cards.search.repo.CardSearchRepository;
+import com.etiennek.cards.repo.CardRepository;
 
 @Controller
 @RequestMapping("/")
 public class CardsController {
 
-	private CardSearchRepository cardRepository;
+	private CardRepository cardRepository;
 
 	@Autowired
-	CardsController(CardSearchRepository cardRepository) {
+	CardsController(CardRepository cardRepository) {
 		this.cardRepository = cardRepository;
 	}
 

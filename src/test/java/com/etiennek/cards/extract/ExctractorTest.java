@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.etiennek.cards.App;
 import com.etiennek.cards.domain.Card;
-import com.etiennek.cards.search.repo.CardSearchRepository;
+import com.etiennek.cards.repo.CardRepository;
 import com.etiennek.cards.extract.Extractor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,7 +23,7 @@ import com.etiennek.cards.extract.Extractor;
 public class ExctractorTest {
 
 	@Autowired
-	CardSearchRepository cardRepository;
+	CardRepository cardRepository;
 
 	@Before
 	public void start() {
@@ -65,7 +65,7 @@ public class ExctractorTest {
 	private static String IN_GAME_ID_ASSBLADE = "CS2_080";
 	private static String IN_GAME_ID_TWIS_NETH = "EX1_312";
 
-	private Card expectedGrommash(String id) {
+	private Card expectedGrommash(Long id) {
 		return new Card(
 				id,
 				IN_GAME_ID_GROMMASH,
@@ -84,7 +84,7 @@ public class ExctractorTest {
 				"Glenn Rane", true, true, null, 10, null, null);
 	}
 
-	private Card expectedAssassinsBlade(String id) {
+	private Card expectedAssassinsBlade(Long id) {
 		return new Card(
 				id,
 				IN_GAME_ID_ASSBLADE,
@@ -104,7 +104,7 @@ public class ExctractorTest {
 				"Unlocked at Level 32.");
 	}
 
-	private Card expectedTwistingNether(String id) {
+	private Card expectedTwistingNether(Long id) {
 		return new Card(
 				id,
 				IN_GAME_ID_TWIS_NETH,

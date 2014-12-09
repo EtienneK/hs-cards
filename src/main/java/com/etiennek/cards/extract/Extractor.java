@@ -21,15 +21,15 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.etiennek.cards.domain.Card;
-import com.etiennek.cards.search.repo.CardSearchRepository;
+import com.etiennek.cards.repo.CardRepository;
 
 public class Extractor extends DefaultHandler {
 
-	private CardSearchRepository cardRepository;
+	private CardRepository cardRepository;
 	private Entity currentEntity;
 	private Integer currentTagEnumId;
 
-	public Extractor(CardSearchRepository cardRepository) {
+	public Extractor(CardRepository cardRepository) {
 		this.cardRepository = cardRepository;
 	}
 
@@ -139,8 +139,7 @@ public class Extractor extends DefaultHandler {
 		// mechanics = null; // TODO
 
 		Card card = cardRepository.findFirstByGameId(id);
-		String internalId = card == null ? UUID.randomUUID().toString() : card
-				.getId();
+		Long internalId = (card == null) ? null : card.getId();
 		card = new Card(internalId, id, name, attack, health, set, type,
 				faction, rarity, cost, durability, text, textInPlay,
 				flavourText, artistName, isCollectible, isElite, race,

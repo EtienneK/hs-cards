@@ -1,21 +1,16 @@
-package com.etiennek.cards.domain;
+package com.etiennek.cards.search.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-@Entity
-public class Card {
-
+@Document(indexName = "card")
+public class CardSearch {
 	@Id
-	@GeneratedValue
-	private Long id;
+	private String id;
 	private String gameId;
 	private String name;
 	private Integer attack;
 	private Integer health;
-	@Column(name = "`set`")
 	private int set;
 	private int type;
 	private Integer faction;
@@ -33,11 +28,11 @@ public class Card {
 	private String howToGet;
 	private String howToGetGold;
 
-	protected Card() {
+	protected CardSearch() {
 		super();
 	}
 
-	public Card(Long id, String gameId, String name, Integer attack,
+	public CardSearch(String id, String gameId, String name, Integer attack,
 			Integer health, int set, int type, Integer faction, Integer rarity,
 			Integer cost, Integer durability, String text, String textInPlay,
 			String flavourText, String artistName, boolean collectible,
@@ -67,7 +62,7 @@ public class Card {
 		this.howToGetGold = howToGetGold;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -194,7 +189,7 @@ public class Card {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Card other = (Card) obj;
+		CardSearch other = (CardSearch) obj;
 		if (artistName == null) {
 			if (other.artistName != null)
 				return false;
