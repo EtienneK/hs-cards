@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.etiennek.cards.domain.Card;
-import com.etiennek.cards.repo.CardRepository;
+import com.etiennek.cards.search.repo.CardSearchRepository;
 
 @RestController
 @RequestMapping("/api/v1/cards")
 public class CardsRestController {
 
-	private CardRepository cardRepository;
+	private CardSearchRepository cardRepository;
 
 	@Autowired
-	CardsRestController(CardRepository cardRepository) {
+	CardsRestController(CardSearchRepository cardRepository) {
 		super();
 		this.cardRepository = cardRepository;
 	}

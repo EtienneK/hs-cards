@@ -21,15 +21,15 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.etiennek.cards.domain.Card;
-import com.etiennek.cards.repo.CardRepository;
+import com.etiennek.cards.search.repo.CardSearchRepository;
 
 public class Extractor extends DefaultHandler {
 
-	private CardRepository cardRepository;
+	private CardSearchRepository cardRepository;
 	private Entity currentEntity;
 	private Integer currentTagEnumId;
 
-	public Extractor(CardRepository cardRepository) {
+	public Extractor(CardSearchRepository cardRepository) {
 		this.cardRepository = cardRepository;
 	}
 

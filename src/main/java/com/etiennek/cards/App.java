@@ -8,15 +8,18 @@ import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
 @EnableSpringDataWebSupport
+@EnableElasticsearchRepositories("com.etiennek.cards.search.repo")
 public class App {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(App.class, args);
+
 	}
 
 	@Bean

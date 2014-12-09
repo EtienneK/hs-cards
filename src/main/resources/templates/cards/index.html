@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorator="layout">
 
 <head>
@@ -9,10 +10,14 @@
 	<div layout:fragment="content" class="container">
 
 		<p data-bind="visible: isTypingInQueryInput()">Searching...</p>
-		<p data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &lt;= 0">No results found.</p>
+		<p
+			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &lt;= 0">No
+			results found.</p>
 
-		<div class="row"
-			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, template: {name:'card', foreach:cards}">
+		<div data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, foreach: renderedCards">
+			<div class="row"
+				data-bind="template: {name:'card', foreach:$data}">
+			</div>
 		</div>
 
 		<script type="text/html" id="card">

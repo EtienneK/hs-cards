@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.etiennek.cards.App;
 import com.etiennek.cards.domain.Card;
-import com.etiennek.cards.repo.CardRepository;
+import com.etiennek.cards.search.repo.CardSearchRepository;
 import com.etiennek.cards.extract.Extractor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,7 +24,7 @@ import com.etiennek.cards.extract.Extractor;
 public class ExctractorTest {
 
 	@Autowired
-	CardRepository cardRepository;
+	CardSearchRepository cardRepository;
 
 	@Before
 	public void start() {
@@ -37,8 +37,8 @@ public class ExctractorTest {
 		Extractor extractor = new Extractor(cardRepository);
 
 		// Act
-		extractor.extract(Paths.get("D:/temp/extractor/cardxml0.unity3d"));
-		extractor.extract(Paths.get("D:/temp/extractor/cardxml0.unity3d"));
+		extractor.extract(Paths.get("C:/Temp/extract/cardxml0.unity3d"));
+		extractor.extract(Paths.get("C:/Temp/extract/cardxml0.unity3d"));
 
 		Card actualGrommash = cardRepository
 				.findFirstByGameId(IN_GAME_ID_GROMMASH);

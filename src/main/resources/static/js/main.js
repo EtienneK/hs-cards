@@ -3,6 +3,16 @@ $(function() {
 	var viewModel = {};
 
 	viewModel.cards = ko.observableArray([]);
+	viewModel.renderedCards = ko.computed(function() {
+		var data = viewModel.cards();
+		var times = Math.ceil(data.length / 3);
+		var result = [];
+		for (var i = 0; i < times; i++) {
+			result.push(data.slice(i * 3, i * 3 + 3));
+		}
+		return result;
+	});
+
 	viewModel.isTypingInQueryInput = ko.observable(false);
 
 	viewModel.query = ko.observable();
@@ -24,7 +34,7 @@ $(function() {
 		if (search === '') {
 			viewModel.updateData(firstPage);
 		} else {
-			$.get('http://localhost:8080/api/v1/cards/search', {
+			$.get('http://localhost:8080/api/v1/cards/search?page=0&size=21', {
 				query : search
 			}).done(function(data) {
 				viewModel.updateData(data);
@@ -41,7 +51,7 @@ $(function() {
 	ko.applyBindings(viewModel);
 
 	$.ajax({
-		url : 'http://localhost:8080/api/v1/cards',
+		url : 'http://localhost:8080/api/v1/cards?page=0&size=21',
 		success : function(data) {
 			viewModel.updateData(data);
 			firstPage = data;

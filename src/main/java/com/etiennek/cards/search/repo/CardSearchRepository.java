@@ -1,4 +1,4 @@
-package com.etiennek.cards.repo;
+package com.etiennek.cards.search.repo;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.etiennek.cards.domain.Card;
 
 @Repository
-public interface CardRepository extends ElasticsearchRepository<Card, String> {
+public interface CardSearchRepository extends ElasticsearchRepository<Card, String> {
 	Card findFirstByGameId(String gameId);
 	
 	@Query("{ \"query_string\" : { \"query\" : \"?0\" } }")
