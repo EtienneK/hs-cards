@@ -76,12 +76,14 @@ public class ExctractorTest {
 				4,
 				3,
 				5,
+				null,
+				10,
 				8,
 				null,
 				"<b>Charge</b>\n<b>Enrage:</b> +6 Attack",
 				null,
 				"Grommash drank the tainted blood of Mannoroth, dooming the orcs to green skin and red eyes!  Maybe not his best decision.",
-				"Glenn Rane", true, true, null, 10, null, null);
+				"Glenn Rane", true, true, null, null);
 	}
 
 	private Card expectedAssassinsBlade(Long id) {
@@ -95,12 +97,14 @@ public class ExctractorTest {
 				7,
 				3,
 				1,
+				null,
+				7,
 				5,
 				4,
 				null,
 				null,
 				"Guaranteed to have been owned by a real assassin.   Certificate of authenticity included.",
-				"Brian Huang", true, false, null, 7, "Unlocked at Level 2.",
+				"Brian Huang", true, false, "Unlocked at Level 2.",
 				"Unlocked at Level 32.");
 	}
 
@@ -115,11 +119,13 @@ public class ExctractorTest {
 				5,
 				3,
 				4,
+				null,
+				9,
 				8,
 				null,
 				"Destroy all minions.",
 				null,
 				"The Twisting Nether is a formless place of magic and illusion and destroyed minions.",
-				"Dave Allsop", true, false, null, 9, null, null);
+				"Dave Allsop", true, false, null, null);
 	}
 }

@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.SAXParser;
@@ -141,9 +140,9 @@ public class Extractor extends DefaultHandler {
 		Card card = cardRepository.findFirstByGameId(id);
 		Long internalId = (card == null) ? null : card.getId();
 		card = new Card(internalId, id, name, attack, health, set, type,
-				faction, rarity, cost, durability, text, textInPlay,
-				flavourText, artistName, isCollectible, isElite, race,
-				heroClass, howToGet, howToGetGold);
+				faction, rarity, race, heroClass, cost, durability, text,
+				textInPlay, flavourText, artistName, isCollectible, isElite,
+				howToGet, howToGetGold);
 		cardRepository.save(card);
 	}
 
