@@ -57,6 +57,82 @@ public class CardModel {
 		this.elite = elite;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Integer getAttack() {
+		return attack;
+	}
+
+	public Integer getHealth() {
+		return health;
+	}
+
+	public int getSetId() {
+		return setId;
+	}
+
+	public String getSetLabel() {
+		return setLabel;
+	}
+
+	public int getTypeId() {
+		return typeId;
+	}
+
+	public String getTypeLabel() {
+		return typeLabel;
+	}
+
+	public Integer getRarityId() {
+		return rarityId;
+	}
+
+	public String getRarityLabel() {
+		return rarityLabel;
+	}
+
+	public Integer getRaceId() {
+		return raceId;
+	}
+
+	public String getRaceLabel() {
+		return raceLabel;
+	}
+
+	public Integer getHeroClassId() {
+		return heroClassId;
+	}
+
+	public String getHeroClassLabel() {
+		return heroClassLabel;
+	}
+
+	public Integer getCost() {
+		return cost;
+	}
+
+	public Integer getDurability() {
+		return durability;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public boolean isCollectible() {
+		return collectible;
+	}
+
+	public boolean isElite() {
+		return elite;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
