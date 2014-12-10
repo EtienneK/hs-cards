@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.SAXParser;
@@ -99,25 +100,25 @@ public class Extractor extends DefaultHandler {
 		}
 	}
 
-	private static int ENUM_ID_CARD_NAME = 185;
-	private static int ENUM_ID_ATTACK = 47;
-	private static int ENUM_ID_HEALTH = 45;
-	private static int ENUM_ID_CARD_SET = 183;
-	private static int ENUM_ID_CARD_TYPE = 202;
-	private static int ENUM_ID_FACTION = 201;
-	private static int ENUM_ID_RARITY = 203;
-	private static int ENUM_ID_COST = 48;
-	private static int ENUM_ID_DURABILITY = 187;
-	private static int ENUM_ID_CARD_TEXT_IN_HAND = 184;
-	private static int ENUM_ID_CARD_TEXT_IN_PLAY = 252;
-	private static int ENUM_ID_FLAVOUR_TEXT = 351;
-	private static int ENUM_ID_ARTIST_NAME = 342;
-	private static int ENUM_COLLECTIBLE = 321;
-	private static int ENUM_ID_ELITE = 114;
-	private static int ENUM_ID_RACE = 200;
-	private static int ENUM_ID_CLASS = 199;
-	private static int ENUM_ID_HOW_TO_GET_THIS_CARD = 364;
-	private static int ENUM_ID_HOW_TO_GET_THIS_GOLD_CARD = 365;
+	private static final int ENUM_ID_CARD_NAME = 185;
+	private static final int ENUM_ID_ATTACK = 47;
+	private static final int ENUM_ID_HEALTH = 45;
+	private static final int ENUM_ID_CARD_SET = 183;
+	private static final int ENUM_ID_CARD_TYPE = 202;
+	private static final int ENUM_ID_FACTION = 201;
+	private static final int ENUM_ID_RARITY = 203;
+	private static final int ENUM_ID_COST = 48;
+	private static final int ENUM_ID_DURABILITY = 187;
+	private static final int ENUM_ID_CARD_TEXT_IN_HAND = 184;
+	private static final int ENUM_ID_CARD_TEXT_IN_PLAY = 252;
+	private static final int ENUM_ID_FLAVOUR_TEXT = 351;
+	private static final int ENUM_ID_ARTIST_NAME = 342;
+	private static final int ENUM_COLLECTIBLE = 321;
+	private static final int ENUM_ID_ELITE = 114;
+	private static final int ENUM_ID_RACE = 200;
+	private static final int ENUM_ID_CLASS = 199;
+	private static final int ENUM_ID_HOW_TO_GET_THIS_CARD = 364;
+	private static final int ENUM_ID_HOW_TO_GET_THIS_GOLD_CARD = 365;
 
 	private void saveEntity() {
 		String id = currentEntity.id;
@@ -130,8 +131,9 @@ public class Extractor extends DefaultHandler {
 		Integer rarity = toInt(currentEntity.tagValue(ENUM_ID_RARITY));
 		Integer cost = toInt(currentEntity.tagValue(ENUM_ID_COST));
 		Integer durability = toInt(currentEntity.tagValue(ENUM_ID_DURABILITY));
-		String text = currentEntity.tagValue(ENUM_ID_CARD_TEXT_IN_HAND);
-		String textInPlay = currentEntity.tagValue(ENUM_ID_CARD_TEXT_IN_PLAY);
+		String text = clean(currentEntity.tagValue(ENUM_ID_CARD_TEXT_IN_HAND));
+		String textInPlay = clean(currentEntity
+				.tagValue(ENUM_ID_CARD_TEXT_IN_PLAY));
 		String flavourText = currentEntity.tagValue(ENUM_ID_FLAVOUR_TEXT);
 		String artistName = currentEntity.tagValue(ENUM_ID_ARTIST_NAME);
 		boolean isCollectible = toBool(currentEntity.tagValue(ENUM_COLLECTIBLE));
@@ -190,6 +192,21 @@ public class Extractor extends DefaultHandler {
 			return false;
 		}
 		return "1".equals(s) || Boolean.parseBoolean(s);
+	}
+
+	private static final Pattern DOLLAR_PATTERN = Pattern
+			.compile("\\$([0-9])+");
+	private static final Pattern HASH_PATTERN = Pattern.compile("#([0-9])+");
+
+	static String clean(String s) {
+		if (s == null) {
+			return null;
+		}
+
+		String ret = DOLLAR_PATTERN.matcher(s).replaceAll("$1");
+		ret = HASH_PATTERN.matcher(ret).replaceAll("$1");
+
+		return ret;
 	}
 
 }

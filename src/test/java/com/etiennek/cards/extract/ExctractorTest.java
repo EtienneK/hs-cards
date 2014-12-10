@@ -35,7 +35,7 @@ public class ExctractorTest {
 	}
 
 	@Test
-	public void test() throws IOException {
+	public void Full_extraction_test() throws IOException {
 		// Arrange
 		Extractor extractor = new Extractor(cardRepository,
 				cardSearchRepository);
@@ -132,5 +132,19 @@ public class ExctractorTest {
 				null,
 				"The Twisting Nether is a formless place of magic and illusion and destroyed minions.",
 				"Dave Allsop", true, false, null, null);
+	}
+
+	@Test
+	public void clean_Unit_Test() {
+		// Arrange
+		String toClean = "Deal $2 damage to all enemies. Restore #3 Health to all friendly characters.";
+
+		// Act
+		String actual = Extractor.clean(toClean);
+
+		// Assert
+		assertThat(
+				actual,
+				is(equalTo("Deal 2 damage to all enemies. Restore 3 Health to all friendly characters.")));
 	}
 }
