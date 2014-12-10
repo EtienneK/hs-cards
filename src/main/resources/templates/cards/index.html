@@ -14,26 +14,26 @@
 			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &lt;= 0">No
 			results found.</p>
 
-		<div data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, foreach: renderedCards">
-			<div class="row"
-				data-bind="template: {name:'card', foreach:$data}">
+		<div
+			data-bind="visible: !isTypingInQueryInput() &amp;&amp; cards().length &gt; 0, foreach: renderedCards">
+			<div class="row" data-bind="template: {name:'card', foreach:$data}">
 			</div>
 		</div>
 
 		<script type="text/html" id="card">
 			<div class="col-sm-4">
-				<div class="well" style="background-color: white;">
-					<h3 data-bind="text: name"></h3>
+				<div class="well well-sm" style="background-color: white;">
+					<h4 data-bind="text: name" style="font-weight: bold"></h4>
 					<p data-bind="html: text ? text.replace(/(?:\r\n|\r|\n)/g, &#39;&lt;br /&gt;&#39;) : &#39;&#39;"></p>
 					<p style="font-weight: bold;">
-						<img data-bind="visible: cost !== null" th:src="@{/img/mana-crystal-30x30.png}" /><span data-bind="text: cost" ></span>
+						<img alt="Cost" data-bind="visible: cost !== null" th:src="@{/img/mana-crystal-30x30.png}" /><span data-bind="text: cost" ></span>
 						<span data-bind="visible: typeId === 4">
-							<img th:src="@{/img/attack-26x30.png}" /><span data-bind="text: attack" ></span>
-							<img th:src="@{/img/health-21x30.png}" /><span data-bind="text: health" ></span>
+							<img alt="Attack" th:src="@{/img/attack-26x30.png}" /><span data-bind="text: attack" ></span>
+							<img alt="Health" th:src="@{/img/health-21x30.png}" /><span data-bind="text: health" ></span>
 						</span>
 						<span data-bind="visible: typeId === 7">
-							<img th:src="@{/img/weapon-attack-30x30.png}" /><span data-bind="text: attack" ></span>
-							<img th:src="@{/img/weapon-durability-30x30.png}" /><span data-bind="text: durability" ></span>
+							<img alt="Attack" th:src="@{/img/weapon-attack-30x30.png}" /><span data-bind="text: attack" ></span>
+							<img alt="Durability" th:src="@{/img/weapon-durability-30x30.png}" /><span data-bind="text: durability" ></span>
 						</span>
 					</p>
 				</div>

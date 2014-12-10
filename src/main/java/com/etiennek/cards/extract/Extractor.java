@@ -154,8 +154,8 @@ public class Extractor extends DefaultHandler {
 		CardSearch cardSearch = new CardSearch(card.getId(), name, attack,
 				health, set, card.getSetLabel(), type, card.getTypeLabel(),
 				rarity, card.getRarityLabel(), race, card.getRaceLabel(),
-				heroClass, card.getHeroClassLabel(), cost, durability,
-				flavourText, isCollectible, isElite);
+				heroClass, card.getHeroClassLabel(), cost, durability, text,
+				isCollectible, isElite);
 		cardSearchRepository.save(cardSearch);
 	}
 
