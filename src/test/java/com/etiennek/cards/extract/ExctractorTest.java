@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.etiennek.cards.App;
 import com.etiennek.cards.domain.Card;
 import com.etiennek.cards.repo.CardRepository;
+import com.etiennek.cards.search.repo.CardSearchRepository;
 import com.etiennek.cards.extract.Extractor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,6 +26,9 @@ public class ExctractorTest {
 	@Autowired
 	CardRepository cardRepository;
 
+	@Autowired
+	CardSearchRepository cardSearchRepository;
+
 	@Before
 	public void start() {
 		cardRepository.deleteAll();
@@ -33,7 +37,8 @@ public class ExctractorTest {
 	@Test
 	public void test() throws IOException {
 		// Arrange
-		Extractor extractor = new Extractor(cardRepository);
+		Extractor extractor = new Extractor(cardRepository,
+				cardSearchRepository);
 
 		// Act
 		extractor.extract(Paths.get("C:/Temp/extract/cardxml0.unity3d"));

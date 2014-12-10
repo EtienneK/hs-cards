@@ -16,16 +16,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.etiennek.cards.extract.Extractor;
 import com.etiennek.cards.repo.CardRepository;
+import com.etiennek.cards.search.repo.CardSearchRepository;
 
 @Controller
 @RequestMapping("/")
 public class CardsController {
 
 	private CardRepository cardRepository;
+	private CardSearchRepository cardSearchRepository;
 
 	@Autowired
-	CardsController(CardRepository cardRepository) {
+	CardsController(CardRepository cardRepository,
+			CardSearchRepository cardSearchRepository) {
 		this.cardRepository = cardRepository;
+		this.cardSearchRepository = cardSearchRepository;
 	}
 
 	@RequestMapping
@@ -48,7 +52,8 @@ public class CardsController {
 			tempCardsXml = Files.createTempFile(UUID.randomUUID().toString(),
 					".unity3d");
 			cardsXmlFile.transferTo(tempCardsXml.toFile());
-			new Extractor(cardRepository).extract(tempCardsXml);
+			new Extractor(cardRepository, cardSearchRepository)
+					.extract(tempCardsXml);
 			redirect.addAttribute("success", true);
 		} catch (Exception e) {
 			// TODO

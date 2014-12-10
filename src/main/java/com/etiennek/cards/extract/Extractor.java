@@ -21,15 +21,21 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.etiennek.cards.domain.Card;
 import com.etiennek.cards.repo.CardRepository;
+import com.etiennek.cards.search.domain.CardSearch;
+import com.etiennek.cards.search.repo.CardSearchRepository;
 
 public class Extractor extends DefaultHandler {
 
 	private CardRepository cardRepository;
+	private CardSearchRepository cardSearchRepository;
+
 	private Entity currentEntity;
 	private Integer currentTagEnumId;
 
-	public Extractor(CardRepository cardRepository) {
+	public Extractor(CardRepository cardRepository,
+			CardSearchRepository cardSearchRepository) {
 		this.cardRepository = cardRepository;
+		this.cardSearchRepository = cardSearchRepository;
 	}
 
 	public void extract(Path cardXmlUnityFile) throws IOException {
@@ -144,6 +150,13 @@ public class Extractor extends DefaultHandler {
 				textInPlay, flavourText, artistName, isCollectible, isElite,
 				howToGet, howToGetGold);
 		cardRepository.save(card);
+
+		CardSearch cardSearch = new CardSearch(card.getId(), name, attack,
+				health, set, card.getSetLabel(), type, card.getTypeLabel(),
+				rarity, card.getRarityLabel(), race, card.getRaceLabel(),
+				heroClass, card.getHeroClassLabel(), cost, durability,
+				flavourText, isCollectible, isElite);
+		cardSearchRepository.save(cardSearch);
 	}
 
 	private Stream<Path> getCardXmls(Path path) throws IOException {
